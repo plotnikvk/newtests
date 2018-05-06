@@ -31,8 +31,7 @@ public class MyWebTest {
     @Test
     public void test ()throws InterruptedException, NullPointerException, IllegalStateException{
 
-        WebElement webElement = driver.findElement(By.xpath("//*[@id=\"main\"]/div/div/table/tbody/tr/td/div/div/div/div" +
-                "/div/div[1]/div[1]/div[3]/div/div[2]/div[1]/div/div/div/form/div[3]/a/span/span"));
+        WebElement webElement = driver.findElement(By.xpath("//span[@class='region-list__arrow']"));
         new Actions(driver).moveToElement(webElement);
         webElement.click();
         Thread.sleep(3000);
@@ -42,20 +41,18 @@ public class MyWebTest {
         region.sendKeys("Нижегородская область");
         Thread.sleep(3000);
 
-        WebElement choiceElement = driver.findElement(By.tagName("u"));
+        WebElement choiceElement = driver.findElement(By.xpath("//span[@class='region-search-box__option']/u"));
         new Actions(driver).moveToElement(choiceElement);
         choiceElement.click();
         Thread.sleep(3000);
 
-        WebElement selectRegion = driver.findElement(By.xpath("//*[@id=\"main\"]/div/div/table/tbody/tr/td/div/div/div/" +
-                "div/div/div[1]/div[1]/div[3]/div/div[2]/div[1]/div/div/div/form/div[3]/a/span"));
-        String factRegion = selectRegion.getText();
+        WebElement selectedRegion = driver.findElement(By.xpath("//span[@class='region-list__name']"));
+        String factRegion = selectedRegion.getText();
         Assert.assertEquals("Выбранная область соответствует заданной","Нижегородская область",
                 factRegion );
        Thread.sleep(3000);
 
-        WebElement footerElement =driver.findElement(By.xpath("//*[@id=\"main\"]/div/div/table/tbody/tr/td/div/div/" +
-                "div/div/div/div[3]/div/div[2]/div/div/div[3]/div/div/div"));
+        WebElement footerElement =driver.findElement(By.xpath("//div[@class='footer-info']"));
         new Actions(driver).moveToElement(footerElement);
         footerElement.click();
        Thread.sleep(3000);
