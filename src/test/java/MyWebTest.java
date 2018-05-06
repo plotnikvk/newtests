@@ -52,12 +52,13 @@ public class MyWebTest {
         String factRegion = selectRegion.getText();
         Assert.assertEquals("Выбранная область соответствует заданной","Нижегородская область",
                 factRegion );
-//        Thread.sleep(3000);
+       Thread.sleep(3000);
 
         WebElement footerElement =driver.findElement(By.xpath("//*[@id=\"main\"]/div/div/table/tbody/tr/td/div/div/" +
                 "div/div/div/div[3]/div/div[2]/div/div/div[3]/div/div/div"));
         new Actions(driver).moveToElement(footerElement);
-//        Thread.sleep(3000);
+        footerElement.click();
+       Thread.sleep(3000);
     }
 
 
