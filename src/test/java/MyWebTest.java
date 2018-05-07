@@ -34,28 +34,36 @@ public class MyWebTest {
         WebElement webElement = driver.findElement(By.xpath("//span[@class='region-list__arrow']"));
         new Actions(driver).moveToElement(webElement);
         webElement.click();
-        Thread.sleep(3000);
 
         WebElement region = driver.findElement(By.xpath("//input[@placeholder='Введите название региона']"));
         new Actions(driver).moveToElement(region);
         region.sendKeys("Нижегородская область");
-        Thread.sleep(3000);
 
         WebElement choiceElement = driver.findElement(By.xpath("//span[@class='region-search-box__option']/u"));
         new Actions(driver).moveToElement(choiceElement);
         choiceElement.click();
-        Thread.sleep(3000);
 
         WebElement selectedRegion = driver.findElement(By.xpath("//span[@class='region-list__name']"));
         String factRegion = selectedRegion.getText();
-        Assert.assertEquals("Выбранная область соответствует заданной","Нижегородская область",
-                factRegion );
-       Thread.sleep(3000);
 
         WebElement footerElement =driver.findElement(By.xpath("//div[@class='footer-info']"));
         new Actions(driver).moveToElement(footerElement);
         footerElement.click();
-       Thread.sleep(3000);
+
+        WebElement facebookSocialElement = driver.findElement(By.cssSelector("span[class*=fb]"));
+        WebElement twitterSocialElement = driver.findElement(By.cssSelector("span[class*=tw]"));
+        WebElement youtubeSocialElement = driver.findElement(By.cssSelector("span[class*=yt]"));
+        WebElement instagramSocialElement = driver.findElement(By.cssSelector("span[class*=ins]"));
+        WebElement odnoklassnikiSocialElement =driver.findElement(By.cssSelector("span[class*=ok]"));
+
+
+        Assert.assertEquals("Выбранная область соответствует заданной","Нижегородская область",
+                factRegion );
+        Assert.assertTrue(facebookSocialElement.isDisplayed());
+        Assert.assertTrue(twitterSocialElement.isDisplayed());
+        Assert.assertTrue(youtubeSocialElement.isDisplayed());
+        Assert.assertTrue(instagramSocialElement.isDisplayed());
+        Assert.assertTrue(odnoklassnikiSocialElement.isDisplayed());
     }
 
 
