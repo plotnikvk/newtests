@@ -20,6 +20,18 @@ import sun.reflect.generics.tree.Tree;
 public class MyWebTest {
     WebDriver driver;
 
+    //Константы для поиска объектов на странице
+    private final By SelectRegionButtonPath = By.xpath("//span[@class='region-list__arrow']");
+    private final By SearchRegionWindowPath = By.xpath("//input[@placeholder='Введите название региона']");
+    private final By ChoiceRegionPath = By.xpath("//span[@class='region-search-box__option']/u");
+    private final By SelectedRegionPath = By.xpath("//span[@class='region-list__name']");
+    private final By FooterElementPath = By.xpath("//div[@class='footer-info']");
+    private final By Fb_IconPath = By.cssSelector("span[class*=fb]");
+    private final By Tw_IconPath = By.cssSelector("span[class*=tw]");
+    private final By Yt_IconPath = By.cssSelector("span[class*=yt]");
+    private final By Ins_IconPath = By.cssSelector("span[class*=ins]");
+    private final By Ok_IconPath = By.cssSelector("span[class*=ok]");
+
     @Before
     public void setUp(){
         System.setProperty("webdriver.chrome.driver", "drivers/chromedriver.exe");
@@ -27,38 +39,39 @@ public class MyWebTest {
         driver.manage().window().maximize();
         driver.get("http://www.sberbank.ru/ru/person/");
     }
+      
 
     @Test
-    public void test ()throws InterruptedException, NullPointerException, IllegalStateException{
+    public void test ()throws NullPointerException, IllegalStateException{
 
-        WebElement webElement = driver.findElement(By.xpath("//span[@class='region-list__arrow']"));
+        WebElement webElement = driver.findElement(SelectRegionButtonPath);
         new Actions(driver).moveToElement(webElement);
         webElement.click();
 
-        WebElement region = driver.findElement(By.xpath("//input[@placeholder='Введите название региона']"));
+        WebElement region = driver.findElement(SearchRegionWindowPath);
         new Actions(driver).moveToElement(region);
         region.sendKeys("Нижегородская область");
 
-        WebElement choiceElement = driver.findElement(By.xpath("//span[@class='region-search-box__option']/u"));
+        WebElement choiceElement = driver.findElement(ChoiceRegionPath);
         new Actions(driver).moveToElement(choiceElement);
         choiceElement.click();
 
-        WebElement selectedRegion = driver.findElement(By.xpath("//span[@class='region-list__name']"));
+        WebElement selectedRegion = driver.findElement(SelectedRegionPath);
         String factRegion = selectedRegion.getText();
 
-        WebElement footerElement =driver.findElement(By.xpath("//div[@class='footer-info']"));
+        WebElement footerElement =driver.findElement(FooterElementPath);
         new Actions(driver).moveToElement(footerElement);
         footerElement.click();
 
-        WebElement facebookSocialElement = driver.findElement(By.cssSelector("span[class*=fb]"));
-        WebElement twitterSocialElement = driver.findElement(By.cssSelector("span[class*=tw]"));
-        WebElement youtubeSocialElement = driver.findElement(By.cssSelector("span[class*=yt]"));
-        WebElement instagramSocialElement = driver.findElement(By.cssSelector("span[class*=ins]"));
-        WebElement odnoklassnikiSocialElement =driver.findElement(By.cssSelector("span[class*=ok]"));
+        WebElement facebookSocialElement = driver.findElement(Fb_IconPath);
+        WebElement twitterSocialElement = driver.findElement(Tw_IconPath);
+        WebElement youtubeSocialElement = driver.findElement(Yt_IconPath);
+        WebElement instagramSocialElement = driver.findElement(Ins_IconPath);
+        WebElement odnoklassnikiSocialElement =driver.findElement(Ok_IconPath);
 
 
-        Assert.assertEquals("Выбранная область соответствует заданной","Нижегородская область",
-                factRegion );
+        Assert.assertEquals("Выбранная область не соответствует заданной",
+                "Нижегородская область", factRegion );
         Assert.assertTrue(facebookSocialElement.isDisplayed());
         Assert.assertTrue(twitterSocialElement.isDisplayed());
         Assert.assertTrue(youtubeSocialElement.isDisplayed());
