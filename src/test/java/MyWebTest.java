@@ -39,37 +39,44 @@ public class MyWebTest {
         driver.manage().window().maximize();
         driver.get("http://www.sberbank.ru/ru/person/");
     }
-      
+
 
     @Test
     public void test ()throws NullPointerException, IllegalStateException{
 
+        //Находим кнопку выбора региона, двигаемся к ней, кликаем по ней
         WebElement webElement = driver.findElement(SelectRegionButtonPath);
         new Actions(driver).moveToElement(webElement);
         webElement.click();
 
+        //Находим окно поиска, двигаемся к нему, отправляем ему текст: "Нижегородская область"
         WebElement region = driver.findElement(SearchRegionWindowPath);
         new Actions(driver).moveToElement(region);
         region.sendKeys("Нижегородская область");
 
+        //Находим выделившийся элемент, двигаемся к нему, кликаем по нему
         WebElement choiceElement = driver.findElement(ChoiceRegionPath);
         new Actions(driver).moveToElement(choiceElement);
         choiceElement.click();
 
+        //Находим элемент выбранного региона, и берем у него текст
         WebElement selectedRegion = driver.findElement(SelectedRegionPath);
         String factRegion = selectedRegion.getText();
 
+        //Находим элемент Footer, двигаемся к нему, кликаем на него,
+        // страница прокручивается вниз
         WebElement footerElement =driver.findElement(FooterElementPath);
         new Actions(driver).moveToElement(footerElement);
         footerElement.click();
 
+        //Находим иконки социальных сетей
         WebElement facebookSocialElement = driver.findElement(Fb_IconPath);
         WebElement twitterSocialElement = driver.findElement(Tw_IconPath);
         WebElement youtubeSocialElement = driver.findElement(Yt_IconPath);
         WebElement instagramSocialElement = driver.findElement(Ins_IconPath);
         WebElement odnoklassnikiSocialElement =driver.findElement(Ok_IconPath);
 
-
+        //делаем проверки
         Assert.assertEquals("Выбранная область не соответствует заданной",
                 "Нижегородская область", factRegion );
         Assert.assertTrue(facebookSocialElement.isDisplayed());
