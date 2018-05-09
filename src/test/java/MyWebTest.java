@@ -17,8 +17,7 @@ import sun.reflect.generics.tree.Tree;
  */
 
 
-public class MyWebTest {
-    WebDriver driver;
+public class MyWebTest extends Base {
 
     //Константы для поиска объектов на странице
     private final By SelectRegionButtonPath = By.xpath("//span[@class='region-list__arrow']");
@@ -32,17 +31,10 @@ public class MyWebTest {
     private final By Ins_IconPath = By.cssSelector("span[class*=ins]");
     private final By Ok_IconPath = By.cssSelector("span[class*=ok]");
 
-    @Before
-    public void setUp(){
-        System.setProperty("webdriver.chrome.driver", "drivers/chromedriver.exe");
-        driver = new ChromeDriver();
-        driver.manage().window().maximize();
-        driver.get("http://www.sberbank.ru/ru/person/");
-    }
-
-
     @Test
     public void test ()throws NullPointerException, IllegalStateException{
+
+        driver.get("http://www.sberbank.ru/ru/person/");
 
         //Находим кнопку выбора региона, двигаемся к ней, кликаем по ней
         WebElement webElement = driver.findElement(SelectRegionButtonPath);
@@ -85,11 +77,4 @@ public class MyWebTest {
         Assert.assertTrue(instagramSocialElement.isDisplayed());
         Assert.assertTrue(odnoklassnikiSocialElement.isDisplayed());
     }
-
-
-    @After
-    public void tearDown(){
-        driver.quit();
-    }
-
 }
